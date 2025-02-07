@@ -1,0 +1,49 @@
+From fa0dff5803c889300f4023c9337687e106f05758 Mon Sep 17 00:00:00 2001
+From: Kyle Steere <kyle.steere@chainguard.dev>
+Date: Thu, 6 Feb 2025 14:40:22 -0600
+Subject: [PATCH] tsconfig updates
+
+Signed-off-by: Kyle Steere <kyle.steere@chainguard.dev>
+---
+ packages/tsconfig.json | 25 +++++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
+
+diff --git a/packages/tsconfig.json b/packages/tsconfig.json
+index 6177054a..cb4f65e8 100644
+--- a/packages/tsconfig.json
++++ b/packages/tsconfig.json
+@@ -7,9 +7,30 @@
+     "removeComments": true,
+     "suppressImplicitAnyIndexErrors": true,
+     "module": "commonjs",
+-    "strict": true,
++    "strict": false,
+     "target": "es2018",
+     "noEmitHelpers": true,
+-    "importHelpers": true
++    "importHelpers": true,
++    "noImplicitAny": true,
++    "noImplicitThis": true,
++    "strictNullChecks": true,
++    "strictFunctionTypes": true,
++    "strictBindCallApply": true,
++    "strictPropertyInitialization": true,
++    "noUnusedLocals": false,
++    "noUnusedParameters": false,
++    "ignoreDeprecations": "5.0",
++    "allowImplicitAnyIndexAccess": true,
++    "resolveJsonModule": true,
++    "esModuleInterop": true
++  },
++  "buildOptions": {
++    "sourceMap": true,
++    "preserveConstEnums": true,
++    "emitDecoratorMetadata": true,
++    "experimentalDecorators": true
++  },
++  "typescript": {
++    "version": "^4.9.3"
+   }
+ }
+--
+2.43.0
