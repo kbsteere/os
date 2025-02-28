@@ -129,6 +129,11 @@ subpackages:
           repository: https://github.com/opensearch-project/${{range.key}}.git
           tag: ${{package.version}}.0
           destination: ./plugins/${{range.value}}
+
+      # CVE-2023-28155
+      - runs: |
+          yarn upgrade @cypress/request@3.0.0
+
       - runs: |
           # fix cve CVE-2024-45801
           cd ./plugins/${{range.value}}
