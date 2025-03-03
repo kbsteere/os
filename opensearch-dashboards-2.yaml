@@ -87,6 +87,10 @@ pipeline:
       devDependencies='{"dompurify": "^3.1.3"}'
       jq --argjson devDependencies "$devDependencies" '.devDependencies += $devDependencies' package.json > temp.json && mv temp.json package.json
 
+      # fix CVE-2023-28155
+      devDependencies='{"cypress": "^13.5.1"}'
+      jq --argjson devDependencies "$devDependencies" '.devDependencies += $devDependencies' package.json > temp.json && mv temp.json package.json
+
       yarn osd bootstrap --allow-root
 
       yarn build-platform --skip-os-packages --skip-archives --release --allow-root
@@ -140,16 +144,8 @@ subpackages:
       - runs: |
           cd ./plugins/${{range.value}}
 
-          # Downgrade cypress version to 12.17.4 if this is securityDashboard due to upstream problem:
-          # ERROR [single_version_dependencies] Multiple version ranges for the same dependency were found declared across different package.json files.
-          # This should be able to be removed in future versions, once upstream corrects the issue.
-          if [ ${{range.value}} = "securityDashboards" ]
-          then
-            # Define the dependencies
-            dependencies='{"cypress": "12.17.4"}'
-            # Apply the dependencies
-            jq --argjson dependencies "$dependencies" '.dependencies += $dependencies' package.json > temp.json && mv temp.json package.json
-          fi
+          dependencies='{"cypress": "^13.5.1"}'
+          jq --argjson dependencies "$dependencies" '.dependencies += $dependencies' package.json > temp.json && mv temp.json package.json
 
           yarn osd bootstrap --allow-root 2>/dev/null
           node /home/build/scripts/plugin_helpers build --allow-root --skip-archive
